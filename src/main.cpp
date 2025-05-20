@@ -2,6 +2,7 @@
 #include <mutex>
 #include <thread>
 #include <filesystem>
+#include <omp.h>
 
 #include "traffic_manager.h"
 
@@ -117,6 +118,9 @@ int main(int argc, char* argv[]) {
   std::vector<Packet*> all_packets;
 
   // Multi-threads initialization
+  omp_set_dynamic(0);
+  omp_set_num_threads(param->threads);
+  omp_set_schedule(omp_sched_static, 0);
   if (param->threads > 1) {
     mtxs = new std::mutex[param->threads];
     thread_ready = new bool[param->threads];
@@ -138,7 +142,7 @@ int main(int argc, char* argv[]) {
     TM->injection_rate_ = (double)TM->CTX->input_trheader->num_packets /
                           TM->CTX->input_trheader->num_cycles / network->num_cores_;
     for (uint64_t i = 0; i < TM->CTX->input_trheader->num_cycles + 1000; i++) {
-      TM->genMes(all_packets, i);
+      TM->gen_msg(all_packets, i);
       run_one_cycle(all_packets, network);
     }
     TM->print_statistics();
@@ -150,13 +154,13 @@ int main(int argc, char* argv[]) {
 
       //  warm up for 50% of the simulation time
       for (uint64_t i = 0; i < param->simulation_time / 2; i++) {
-        TM->genMes(all_packets);
+        TM->gen_msg(all_packets);
         run_one_cycle(all_packets, network);
       }
       TM->reset();
       for (uint64_t i = 0; i < param->simulation_time && TM->message_timeout_ < timeout_limit;
            i++) {
-        TM->genMes(all_packets);
+        TM->gen_msg(all_packets);
         run_one_cycle(all_packets, network);
       }
       TM->print_statistics();

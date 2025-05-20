@@ -2,6 +2,7 @@ add_rules("mode.release", "mode.debug")
 
 add_requires("boost")
 add_requires("fmt")
+add_requires("libomp")
 
 target("netrace")
   set_toolchains("clang")
@@ -21,3 +22,4 @@ target("cnsim")
   add_includedirs("src/netrace")
   add_packages("boost")
   add_packages("fmt")
+  add_packages("libomp")
