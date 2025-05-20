@@ -11,27 +11,20 @@ Yinxiao Feng, Yuchen Wei, Dong Xiang and Kaisheng Ma. Evaluating Chiplet-based L
 - Cycle-accurate
 - Highly configurable and customizable in terms of topology, routing algorithms, and microarchitecture.
 
-
 ### Dependencies
 - boost library
 - netrace (optional, modified from https://github.com/booksim/netrace)
 	- bzip2
 
-### Usage 
-- Windows
-  - Visual Studio 2022
-  - Open the directory as a cmake project
-- Linux
-  - Enter the directory, build, and run
-
 ### Ubuntu 22.04
 ```
-sudo apt install cmake ninja-build build-essential libboost-all-dev libbz2-dev
+sudo add-apt-repository ppa:xmake-io/xmake
+sudo apt update
+sudo apt install cmake ninja-build build-essential libboost-all-dev libbz2-dev git clang
+sudo apt install xmake
 cd chiplet-network-sim
-cmake --preset Release
-cd builds/Release/
-cmake --build .
-./ChipletNetworkSim ../../input/multiple_chip_mesh_4x4.ini
+xmake
+xmake run -w `pwd` cnsim input/multiple_chip_mesh_4x4.ini
 ```
 
 ### Acknowledgement

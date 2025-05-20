@@ -29,8 +29,8 @@ Parameters::Parameters(const std::string &config_file) {
     trace_file = params_ptree.get<std::string>("Files.trace_file");
   else if (traffic == "netrace")
     netrace_file = params_ptree.get<std::string>("Files.netrace_file");
-  output_file = params_ptree.get<std::string>("Files.output_file", "../../output/output.csv");
-  log_file = params_ptree.get<std::string>("Files.log_file", "../../output/log.txt");
+  output_file = params_ptree.get<std::string>("Files.output_file", "output/output.csv");
+  log_file = params_ptree.get<std::string>("Files.log_file", "output/log.txt");
 
   print_params();
 }

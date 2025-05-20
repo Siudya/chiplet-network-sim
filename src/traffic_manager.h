@@ -1,14 +1,13 @@
 #pragma once
 #include <chrono>
 #include <fstream>
+#include <random>
 
 #include "system.h"
 extern "C" {
 #include "netrace.h"
 }
-
-#include "boost/random.hpp"
-extern boost::mt19937 gen;
+extern std::mt19937 gen;
 
 class TrafficManager {
  public:

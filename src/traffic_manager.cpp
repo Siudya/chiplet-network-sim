@@ -1,6 +1,18 @@
 #include "traffic_manager.h"
-
 #include "boost/dynamic_bitset.hpp"
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
+void open_output_stream(std::string &file_name, std::fstream &_fstream) {
+  fs::path dir_path = fs::path(file_name).parent_path();
+  if (!fs::exists(dir_path)) fs::create_directories(dir_path);
+  _fstream.open(file_name, std::fstream::out);
+  if (!_fstream.is_open()) {
+    std::cerr << "Error opening file: " << file_name << std::endl;
+    exit(EXIT_FAILURE);
+  }
+}
 
 TrafficManager::TrafficManager() {
   injection_rate_ = 0;
@@ -19,8 +31,8 @@ TrafficManager::TrafficManager() {
     nt_disable_dependencies(CTX);
     nt_print_trheader(CTX);
   }
-  output_.open(param->output_file, std::fstream::out);
-  log_.open(param->log_file, std::fstream::out);
+  open_output_stream(param->output_file, output_);
+  open_output_stream(param->log_file, log_);
 
   pkt_for_injection_ = 0;
   // statistics

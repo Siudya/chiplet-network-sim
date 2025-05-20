@@ -1,0 +1,23 @@
+add_rules("mode.release", "mode.debug")
+
+add_requires("boost")
+add_requires("fmt")
+
+target("netrace")
+  set_toolchains("clang")
+  set_kind("static")
+  add_files("src/netrace/*.c")
+  add_includedirs("src/netrace")
+
+target("cnsim")
+  set_toolchains("clang")
+  set_kind("binary")
+  set_languages("c++17")
+  add_deps("netrace")
+  add_files("src/*.cpp")
+  add_files("src/topologies/*.cpp")
+  add_includedirs("src")
+  add_includedirs("src/topologies")
+  add_includedirs("src/netrace")
+  add_packages("boost")
+  add_packages("fmt")

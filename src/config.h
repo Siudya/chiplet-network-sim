@@ -19,7 +19,8 @@ const std::vector<std::string> traffic_patterns = {
     "test",       "uniform",     "hotspot",  "bitcomplement", "bittranspose", "bitreverse",
     "bitshuffle", "adversarial", "sd_trace", "netrace", "ring_all_reduce", "ring_all_reduce_bi"};
 
-struct Channel {
+class Channel {
+  public:
   Channel(int link_width = 0, int link_latency = 0) : width(link_width), latency(link_latency) {}
   int width;  // Link (bandwidth) can allocated at flit (1 flit/cycle) granularity.
   int latency;
@@ -36,8 +37,8 @@ const Channel off_chip_parallel_channel(1, 2);
 const Channel off_chip_serial_channel(2, 4);
 const Channel long_distance_channel(1, 10);
 
-struct Parameters {
- public:
+class Parameters {
+  public:
   explicit Parameters(const std::string& config_file = "");
   std::string config_file_path;
   boost::property_tree::ptree params_ptree;

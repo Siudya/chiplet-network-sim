@@ -1,6 +1,7 @@
 ﻿#include <condition_variable>
 #include <mutex>
 #include <thread>
+#include <filesystem>
 
 #include "traffic_manager.h"
 
@@ -8,7 +9,7 @@
 Parameters* param;
 TrafficManager* TM;
 System* network;
-boost::mt19937 gen;  // random number generator
+std::mt19937 gen;  // random number generator
 
 // multi-threading variables
 static std::vector<std::thread> threads;

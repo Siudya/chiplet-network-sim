@@ -40,10 +40,10 @@ class CGroup : public Chip {
   ~CGroup();
 
   void set_chip(System* dragonfly, int Cgroup_id) override;
-  inline NodeInCG* get_node(int chiplet_id) const {
+  inline NodeInCG* get_node(int chiplet_id) const override {
     return static_cast<NodeInCG*>(Chip::get_node(NodeID(chiplet_id)));
   }
-  inline NodeInCG* get_node(NodeID id) const { return static_cast<NodeInCG*>(Chip::get_node(id)); }
+  inline NodeInCG* get_node(NodeID id) const override { return static_cast<NodeInCG*>(Chip::get_node(id)); }
 
   DragonflyChiplet* dragonfly_;
   int& num_chiplets_;
@@ -78,7 +78,7 @@ class DragonflyChiplet : public System {
   void XY_routing(Packet& s, NodeID dest, int vcb) const;
   void XY_adaptive_routing(Packet& s, NodeID dest) const;
 
-  inline NodeInCG* get_node(NodeID id) const {
+  inline NodeInCG* get_node(NodeID id) const override {
     return static_cast<NodeInCG*>(System::get_node(id));
   }
   inline CGroup* get_cgroup(NodeID id) const { return static_cast<CGroup*>(get_chip(id.chip_id)); }
