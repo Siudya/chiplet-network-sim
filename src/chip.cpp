@@ -10,9 +10,6 @@ Chip::Chip() {
 
 Chip::~Chip()
 {
-	for (auto node : nodes_) {
-		delete node;
-	}
 	nodes_.clear();
 }
 
@@ -27,7 +24,7 @@ void Chip::set_chip(System* system, int chip_id)
 }
 
 void Chip::reset() {
-	for (auto node : nodes_) {
+	for (const auto &node : nodes_) {
 		node->reset();
 	}
 }

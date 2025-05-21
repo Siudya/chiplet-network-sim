@@ -45,13 +45,11 @@ CGroup::CGroup(int k_chiplet, int cgroup_radix, int vc_num, int buffer_size,
   dragonfly_ = nullptr;
   nodes_.reserve(num_chiplets_);
   for (int i = 0; i < num_chiplets_; i++) {
-    nodes_.push_back(
-        new NodeInCG(k_chiplet, vc_num, buffer_size, internal_channel, external_channel));
+    nodes_.push_back(std::make_unique<NodeInCG>(k_chiplet, vc_num, buffer_size, internal_channel, external_channel));
   }
 }
 
 CGroup::~CGroup() {
-  for (auto chiplet : nodes_) delete chiplet;
   nodes_.clear();
 }
 

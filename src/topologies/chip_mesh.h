@@ -39,10 +39,10 @@ class ChipMesh : public Chip {
   ~ChipMesh();
   void set_chip(System* system, int chip_id) override;
   inline NodeMesh* get_node(int node_id) const override {
-    return static_cast<NodeMesh*>(nodes_[node_id]);
+    return static_cast<NodeMesh*>(nodes_[node_id].get());
   }
   inline NodeMesh* get_node(NodeID id) const override {
-    return static_cast<NodeMesh*>(nodes_[id.node_id]);
+    return static_cast<NodeMesh*>(nodes_[id.node_id].get());
   }
 
   int k_node_;

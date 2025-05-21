@@ -10,8 +10,8 @@ class Chip {
   virtual void set_chip(System* system, int chip_id_);
   void reset();
 
-  virtual inline Node* get_node(int node_id) const { return nodes_[node_id]; }
-  virtual inline Node* get_node(NodeID id) const  { return nodes_[id.node_id]; }
+  virtual inline Node* get_node(int node_id) const { return nodes_[node_id].get(); }
+  virtual inline Node* get_node(NodeID id) const  { return nodes_[id.node_id].get(); }
 
   System* system_;  // Point to the upper level group
 
@@ -22,5 +22,5 @@ class Chip {
 
   friend TrafficManager;
  protected:
-  std::vector<Node*> nodes_;
+  std::vector<std::unique_ptr<Node>> nodes_;
 };

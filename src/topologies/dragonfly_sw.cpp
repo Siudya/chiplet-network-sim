@@ -7,13 +7,12 @@ ChipSwitch::ChipSwitch(int sw_radix, int num_core, int vc_num, int buffer_size, 
   group_id_ = 0;
   nodes_.reserve(number_nodes_);
   for (int i = 0; i < number_cores_; i++) {
-    nodes_.push_back(new Node(1, vc_num, buffer_size, ch));
+    nodes_.push_back(std::make_unique<Node>(1, vc_num, buffer_size, ch));
   }
-  nodes_.push_back(new Node(switch_radix_, vc_num, buffer_size, ch));
+  nodes_.push_back(std::make_unique<Node>(switch_radix_, vc_num, buffer_size, ch));
 }
 
 ChipSwitch::~ChipSwitch() {
-  for (auto node : nodes_) delete node;
   nodes_.clear();
 }
 

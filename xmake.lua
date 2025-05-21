@@ -1,4 +1,5 @@
 add_rules("mode.release", "mode.debug")
+add_rules("plugin.compile_commands.autoupdate", {outputdir = ".vscode"})
 
 add_requires("boost")
 add_requires("fmt")

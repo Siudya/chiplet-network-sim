@@ -34,14 +34,11 @@ ChipMesh::ChipMesh(int k_node, int vc_num, int buffer_size) {
   nodes_.reserve(number_nodes_);
   chip_coordinate_.resize(2);
   for (int node_id = 0; node_id < number_nodes_; node_id++) {
-    nodes_.push_back(new NodeMesh(k_node_, vc_num, buffer_size));
+    nodes_.push_back(std::make_unique<NodeMesh>(k_node_, vc_num, buffer_size));
   }
 }
 
 ChipMesh::~ChipMesh() {
-  for (auto node : nodes_) {
-    delete node;
-  }
   nodes_.clear();
 }
 
